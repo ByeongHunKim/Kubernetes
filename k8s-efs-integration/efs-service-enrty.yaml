@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1beta1
+kind: ServiceEntry
+metadata:
+  name: efs-service-entry
+spec:
+  hosts:
+  - <EFS-DNS-Name>
+  ports:
+  - number: 2049
+    name: nfs
+    protocol: TCP
+  location: MESH_EXTERNAL
+
