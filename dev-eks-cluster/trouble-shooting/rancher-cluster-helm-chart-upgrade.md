@@ -19,7 +19,7 @@ helm get values rancher -n cattle-system > values.yaml # before value 다운로�
 
 nano values.yaml # 수정
 
-helm upgrade rancher rancher-latest/rancher -n cattle-system -f ~/memeCore/dev-cluster-setting-history/dev-cluster-rancher/values.yaml
+helm upgrade rancher rancher-latest/rancher -n cattle-system -f ~/<path_to_chart>/values.yaml
 # Error: non-absolute URLs should be in form of repo_name/path_to_chart, got: rancher-stable 에러 발생
 
 helm repo list # 현재 helm repo list 체크 -> rancher-stable 확인 
