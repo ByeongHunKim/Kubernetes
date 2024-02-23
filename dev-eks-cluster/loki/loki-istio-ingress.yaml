@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loki-grafana-ingress
+  namespace: loki
+  annotations:
+    kubernetes.io/ingress.class: istio
+  labels:
+    app.kubernetes.io/name: loki-grafana
+    app.kubernetes.io/instance: loki
+spec:
+  rules:
+  - host: # domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: loki-grafana
+            port:
+              number: 80

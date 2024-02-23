@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: loki-grafana-virtual-service
+  namespace: loki
+spec:
+  gateways:
+    - loki-gateway
+  hosts:
+    - # domain
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: loki-grafana
+            port:
+              number: 80
