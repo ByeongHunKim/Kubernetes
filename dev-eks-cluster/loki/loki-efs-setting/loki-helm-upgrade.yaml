@@ -1,0 +1,11 @@
+grafana:
+  enabled: true
+  persistence:
+    enabled: true
+    existingClaim: grafana-pvc
+
+loki:
+  persistence:
+    enabled: true
+    existingClaim: loki-pvc
+

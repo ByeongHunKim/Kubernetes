@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-test-pod
+  namespace: loki
+spec:
+  containers:
+    - name: pvc-test-container
+      image: busybox
+      command: ["/bin/sh", "-c", "tail -f /dev/null"]
+      volumeMounts:
+        - mountPath: "/mnt/data"
+          name: grafana-pvc-volume
+  volumes:
+    - name: grafana-pvc-volume
+      persistentVolumeClaim:
+        claimName: grafana-pvc
