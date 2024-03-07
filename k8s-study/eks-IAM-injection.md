@@ -50,6 +50,29 @@ $ curl $OIDC_URL/.well-known/openid-configuration
 - Annotation을 통해서 role을 부여할 때 OIDC ( OpenID Connect) issuer URL 이 사용되게 된다. 따라서 EKS 에서 IRSA 라는 개념을 적용하여 사용하기 위한 도구로 OIDC identity provider를 만들어 줘야 함
 - OIDC는 AccessToken과 ID Token이 발행되는데 이 ID Token이 신원정보를 갖고 있는 토큰이 된다
 
+---
+### service account 를 위한  IAM 기능
+- 쿠버네티스를 aws 환경에서 사용하다보면 각 pod 에서 aws에 대한 접근 권한이 필요한 경우가 생길 수 밖에 없다
+- 이때 우리가 생각해볼 수 있는 권한 부여 방식
+  - 각 pod 에서 사용 가능한 sa를 이용하여 권한을 부여
+  - EC2에 할당된 인스턴스 프로파일 활용
+- 인스턴스 프로파일을 사용하면 간단한 코드를 통해 롤의 권한을 사용할 수 있다는 장점이 있지만 하나의 노드에서 구동되는 여러 pod이 동일한 권한을 가져간다는 점에서 보면 바람직한 권한 부여 방식은 아니다
+- 따라서 aws 에서는 이렇게 pod 별로 서로 다른 Role의 맵핑이 가능하도록 `IAM Role foe Service Account` 라는 기능을 제공한다
+- 이름에서 나타난 것처럼 이 기능은 각 pod에서 사용하는 sa 별로 IAM Role을 사용하는 것을 목적으로 하고 있다
+
+###  IRSA 기능을 어떻게 사용하는 가
+- IRSA 를 이용하여 각 sa 별로 IAM Role을 맵핑하기 위해서는 몇 가지 준비 작업이 필요하다
+  - OIDC 기반의 IdP 를 IAM 에 등록해야 한다
+  - sa 에 맵핑할 IAM Role 을 생성하고 Policy 를 할당해줘야 한다
+  - IAM Role 이 준비가 되었다면 Role 을 사용할 sa 를 생성해야 한다
+  - 마지막으로 Service Account 에 대한 Annotation 을 추가하면 각 Pod 에서 사용되는 sa 에 대한 IAM Role 의 맵핑이 완료된다
+- 이렇게 하면 여러가지 목적을 가지는 서로 다른 Pod 에 대해서 제한된 권한을 갖는 서로 다른 Role 을 맵핑하는 것이 가능해진다
+- e.g
+  - S3 에 접근이 필요한 Pod 은 sa를 통해 s3에 접근 권한을 갖는 Role 을 사용하게 되고 
+  - KMS 에 접근이 필요한 Pod 은 SA 를 통해  KMS 에 접근 권한을 갖는 Role 을 사용하는 것
+
+---
+
 ## EKS Pod Idenetity
 - reference
   - [EKS Pod Identity](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/pod-identities.html)
