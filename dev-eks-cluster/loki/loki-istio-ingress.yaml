@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/instance: loki
 spec:
   rules:
-  - host: # domain
+  - host: # domain 입력
     http:
       paths:
       - path: /
