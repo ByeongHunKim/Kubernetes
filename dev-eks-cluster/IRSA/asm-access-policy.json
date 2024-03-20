@@ -4,10 +4,21 @@
     {
       "Effect": "Allow",
       "Action": [
-        "secretsmanager:GetSecretValue",
-        "secretsmanager:DescribeSecret"
+        "secretsmanager:BatchGetSecretValue",
+        "secretsmanager:ListSecrets"
       ],
       "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+        "SecretARN1",
+        "SecretARN2",
+        "SecretARN3"
+      ]
     }
   ]
 }
