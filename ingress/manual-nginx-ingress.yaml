@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer :
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    meta.helm.sh/release-name:
+    meta.helm.sh/release-namespace:
+  name:
+  namespace:
+spec:
+  rules:
+    - host:
+      http:
+        paths:
+          - backend:
+              service:
+                name:
+                port:
+                  number:
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        -
+      secretName:
