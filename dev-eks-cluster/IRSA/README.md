@@ -81,7 +81,7 @@
 ### 2.1.1 IAM 정책생성 예제
 
 ```yaml
-aws iam create-policy --policy-name EKSSecretsManagerReadOnly --policy-document file://asm-access-policy.json
+aws iam create-policy --policy-name prjName-dev-asm-read-iam-policy --policy-document file://asm-access-policy.json
 
 {
     "Policy": {
@@ -119,10 +119,10 @@ aws iam create-policy --policy-name {이름} --policy-document file://{policy.js
 
 ```yaml
 eksctl create iamserviceaccount \
-    --name nestjs-config-variable-reader-dev \
-    --namespace nestjs-boilerplate-config-variable \
+    --name prjName-service-account \
+    --namespace your-namespace \
     --cluster dev \
-    --attach-policy-arn <Policy-arn>\
+    --attach-policy-arn <Policy-arn> \
     --approve \
     --override-existing-serviceaccounts
 
