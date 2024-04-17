@@ -1,0 +1,9 @@
+replicas: 1
+
+persistence:
+  enabled: true
+  existingClaim: "grafana-pvc"
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi
+  storageClassName: "nfs-client"

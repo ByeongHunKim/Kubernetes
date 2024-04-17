@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-pvc
+  namespace: common-metric  # Grafana가 배포될 네임스페이스
+  labels:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: grafana-release
+    app.kubernetes.io/version: "8.5.0"  # Grafana 버전에 맞추어 수정
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: grafana
+    helm.sh/chart: grafana-8.5.0  # 사용 중인 Helm 차트 버전에 맞추어 수정
+  annotations:
+    meta.helm.sh/release-name: grafana-release
+    meta.helm.sh/release-namespace: common-metric
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi  # Grafana의 데이터 저장 용량 필요에 따라 조정
+  storageClassName: nfs-client  # 사용 중인 StorageClass에 맞추어 수정
+  volumeMode: Filesystem
