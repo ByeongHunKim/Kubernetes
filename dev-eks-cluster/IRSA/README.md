@@ -199,3 +199,7 @@ default          0         6m48s
     ```
 
 - PR 날려서 development로 머지하기
+
+# 트러블 슈팅 방법
+- ./script.sh {service-account-name} {namespace}
+  - 위 스크립트를 실행시키면 해당 네임스페이스에 연결된 service account가 가진 role, policy 정보를 확인해서 어떤 리소스에 접근이 부여됐는 지 aws console에 접근하지 않아도 확인할 수 있다
